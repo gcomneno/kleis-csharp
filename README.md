@@ -1,6 +1,6 @@
 # Kleis Software Lab — Corso di sviluppo software
 
-Repository didattico del corso di sviluppo software. I materiali documentano un percorso progressivo: dai fondamenti di programmazione con C# e .NET alla costruzione di pagine web con HTML, CSS, responsive design e Bootstrap, fino alle basi di dati relazionali e a SQL.
+Repository didattico del corso di sviluppo software. I materiali documentano un percorso progressivo: dai fondamenti di programmazione con C# e .NET alla costruzione di pagine web con HTML, CSS, responsive design e Bootstrap, fino alle basi di dati relazionali, SQL e PHP con accesso MySQL tramite PDO.
 
 Non è una raccolta di esercizi isolati. Codice, esempi, appunti, quiz, soluzioni e Lesson Learned permettono di studiare un argomento, applicarlo e verificare ciò che si è compreso.
 
@@ -11,30 +11,28 @@ Il percorso attualmente presente comprende:
 - responsive design: Flexbox, Grid e media query;
 - Bootstrap 5: griglia, utility, componenti, form e riscrittura di interfacce esistenti;
 - basi di dati relazionali e SQL: DBMS, tabelle, chiavi, relazioni, CRUD, filtri, `NULL`, `JOIN`, ordinamento, aggregazioni, raggruppamenti e progettazione di tabelle e-commerce;
+- PHP: fondamenti del linguaggio, rendering dinamico, catalogo basato su database, PDO, filtro, paginazione e CRUD completo con interfaccia Bootstrap;
 - teoria, metodo di lavoro e preparazione alle verifiche.
-
-PHP è previsto come sviluppo futuro del corso. Al momento il repository non contiene materiali PHP.
 
 ## Ultimi aggiornamenti
 
+- completato e verificato il percorso PHP fino alla Lezione 4;
+- aggiunto il CRUD PHP end-to-end su catalogo prodotti: creazione, lettura, dettaglio, modifica ed eliminazione;
+- aggiunti accesso MySQL con PDO, prepared statements, validazione server-side ed escaping HTML;
+- aggiunta una UI Bootstrap alla demo PHP 4 e un entrypoint `index.php` per l'esecuzione locale;
+- aggiunti Lesson Learned bilingui per PHP 1–4 e nota separata di completamento CRUD per PHP 4;
 - avviata la preparazione del mini-ecommerce finale con roadmap, moduli, flussi, modello dati e checklist d'esame;
 - aggiunto il quiz finale SQL con 60 domande di ripasso e soluzioni commentate;
-- aggiunta la quinta lezione SQL sul progetto e-commerce, con tabelle clienti, ordini, righe d'ordine, chiavi esterne e flusso ordine collegato a PHP;
-- aggiunta la quarta lezione SQL su ordinamento, funzioni di aggregazione, `GROUP BY` e `HAVING`;
-- aggiunto il percorso `web/09-bootstrap-rewrite`, con tre riscritture Bootstrap di esercizi precedenti, quiz, soluzioni e Lesson Learned;
-- completato il modulo sulle basi di dati in cinque lezioni progressive, con quiz, laboratori SQL sul database `shop`, soluzioni commentate ed esempi eseguibili;
-- ampliato il laboratorio Bootstrap con esempi numerati su griglia, form, componenti e pagine responsive complete;
-- aggiunta la gestione ordini in C#, dalla versione con array paralleli al refactoring con modelli e servizi;
-- aggiunti esercizi responsive con Flexbox, Grid e media query e una scheda prodotto completa;
-- aggiunti pre-test HTML/CSS e C# con soluzioni separate.
+- completato il modulo sulle basi di dati in cinque lezioni progressive, con quiz, laboratori SQL sul database `shop`, soluzioni commentate ed esempi eseguibili.
 
 ## Struttura del repository
 
-Le cinque aree reali del percorso sono:
+Le aree principali del percorso sono:
 
 - [`csharp/`](./csharp/) — esercitazioni C# organizzate in ordine progressivo;
 - [`web/`](./web/) — esercitazioni HTML, CSS, responsive design e Bootstrap;
-- [`theory/`](./theory/) — materiali teorici, analisi del rischio e basi di dati;
+- [`php-lab/`](./php-lab/) — modulo PHP con quattro lezioni ricostruite, riprodotte e verificate;
+- [`theory/`](./theory/) — materiali teorici, analisi del rischio, basi di dati e preparazione del mini-ecommerce;
 - [`test-prep/`](./test-prep/) — test di ripasso con soluzioni separate;
 - file di soluzione e progetto .NET — [`Kleis.sln`](./Kleis.sln) alla radice e i file `.csproj` nelle singole esercitazioni C#.
 
@@ -56,11 +54,39 @@ La progressione didattica è:
 
 > teoria → esempio → esercizio → verifica → Lesson Learned
 
-- **Teoria:** introduce lessico, regole e modelli mentali.
-- **Esempio:** mostra il concetto in un caso concreto e circoscritto.
-- **Esercizio:** richiede di applicarlo, fare tentativi e correggere errori.
-- **Verifica:** quiz e pre-test rendono visibili i punti ancora da consolidare.
-- **Lesson Learned:** raccoglie ciò che vale la pena ricordare e trasferire agli esercizi successivi.
+## PHP — percorso attuale
+
+Il modulo PHP è raccolto in [`php-lab/`](./php-lab/) e arriva attualmente alla Lezione 4.
+
+- [PHP 1 — Fondamenti del linguaggio e prima pagina dinamica](./php-lab/lessons/lesson-01-learned.it.md)
+- [PHP 2 — Layout statico del catalogo come ponte verso il rendering dinamico](./php-lab/lessons/lesson-02-learned.it.md)
+- [PHP 3 — Catalogo basato su database con PDO, filtro e paginazione](./php-lab/lessons/lesson-03-learned.it.md)
+- [PHP 4 — CRUD completo con PDO, validazione e UI Bootstrap](./php-lab/lessons/lesson-04-learned.it.md)
+- [PHP 4 — Codice completo](./php-lab/exercises/lesson-04/)
+- [PHP 4 — Nota di completamento CRUD](./php-lab/lessons/lesson-04-crud-completion.it.md)
+
+La Lezione 4 implementa e verifica il ciclo completo:
+
+```text
+Create → Read → Update → Delete
+```
+
+Il catalogo usa MySQL e PDO, query preparate, validazione lato server ed escaping HTML. La cancellazione viene confermata via GET ma la mutazione effettiva avviene soltanto tramite POST. Il runtime è coperto da un road test isolato del CRUD completo.
+
+### Avvio locale della demo PHP 4
+
+Prerequisiti: PHP con `pdo_mysql`, MySQL e un database compatibile con lo schema incluso in [`php-lab/exercises/lesson-04/database/`](./php-lab/exercises/lesson-04/database/).
+
+Dalla radice del repository:
+
+```bash
+cd php-lab/exercises/lesson-04
+PHP4_DB_PASSWORD='PASSWORD_LOCALE' php -S 127.0.0.1:8084
+```
+
+La password viene letta dalla variabile d'ambiente `PHP4_DB_PASSWORD`; il repository non contiene credenziali reali.
+
+Aprendo `http://127.0.0.1:8084/` si arriva al catalogo. Le pagine principali sono `prodotti.php`, `adminprodotti.php`, `dettaglioprodotto.php`, `modificaprodotto.php` ed `eliminaprodotto.php`.
 
 ## Prerequisiti e comandi operativi
 
@@ -109,18 +135,10 @@ Per eseguire gli script SQL in [`theory/02-basi-di-dati/examples/`](./theory/02-
 ## Teoria, metodo e basi di dati
 
 - [`01-analisi-rischio`](./theory/01-analisi-rischio/) — materiale sulle lezioni apprese nell'analisi del rischio;
-- [`02-basi-di-dati`](./theory/02-basi-di-dati/) — percorso didattico completo sulle basi di dati relazionali e SQL.
+- [`02-basi-di-dati`](./theory/02-basi-di-dati/) — percorso didattico completo sulle basi di dati relazionali e SQL;
 - [`03-mini-ecommerce`](./theory/03-mini-ecommerce/) — preparazione del progetto finale: roadmap, moduli, modello dati, flussi utente e checklist d'esame.
 
-Il modulo sulle basi di dati è organizzato in cinque lezioni:
-
-1. concetti generali: database, DBMS, tabelle, record, campi, query, tipi, indici e chiavi;
-2. relazioni e operazioni CRUD, con quiz e l'esempio SQL del database `MUSICA`;
-3. laboratorio sul database `shop`, dedicato a `SELECT`, `WHERE`, `NULL`, operatori logici e `JOIN`;
-4. ordinamento, `LIMIT`, `DISTINCT`, funzioni di aggregazione, `GROUP BY` e `HAVING`;
-5. progettazione di tabelle per un mini e-commerce: clienti, ordini, righe d'ordine, prezzi, chiavi esterne e flusso ordine.
-
-Ogni passaggio è sostenuto dai materiali realmente presenti: [Lesson Learned](./theory/02-basi-di-dati/), quiz, soluzioni dei quiz, [laboratorio SQL](./theory/02-basi-di-dati/LAB_SQL_SHOP_03.md), [soluzioni commentate](./theory/02-basi-di-dati/SOLUZIONI_SQL_SHOP_03.md) ed [esempi SQL](./theory/02-basi-di-dati/examples/).
+Il modulo sulle basi di dati è organizzato in cinque lezioni: concetti generali; relazioni e CRUD; laboratorio `shop` con `SELECT`, `WHERE`, `NULL` e `JOIN`; aggregazioni e raggruppamenti; progettazione delle tabelle per il mini-ecommerce.
 
 ## Preparazione alle verifiche
 
