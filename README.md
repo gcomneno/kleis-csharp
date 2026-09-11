@@ -16,8 +16,9 @@ Il percorso attualmente presente comprende:
 
 ## Ultimi aggiornamenti
 
-- aggiunta la Lezione PHP 5 su carrello e sessioni, con evidence docente del 10 settembre 2026;
+- aggiunta e verificata end-to-end la Lezione PHP 5 su carrello e sessioni, a partire dall'evidence docente del 10 settembre 2026;
 - completato il compito PHP 5 nel laboratorio: carrello in tabella, totale e form dati ordine non persistente;
+- verificati runtime reale, aggiunta al carrello, isolamento fra sessioni, tabella carrello, form ordine, sintassi PHP e assenza di errori server tramite road test dedicato;
 - mantenuto esplicito il confine verso la prossima lezione: persistenza ordine e transazioni non sono ancora marcate come insegnate;
 - completato e verificato il percorso PHP fino alla Lezione 4;
 - aggiunto il CRUD PHP end-to-end su catalogo prodotti: creazione, lettura, dettaglio, modifica ed eliminazione;
@@ -33,7 +34,7 @@ Le aree principali del percorso sono:
 
 - [`csharp/`](./csharp/) — esercitazioni C# organizzate in ordine progressivo;
 - [`web/`](./web/) — esercitazioni HTML, CSS, responsive design e Bootstrap;
-- [`php-lab/`](./php-lab/) — modulo PHP con cinque lezioni formalizzate; PHP 1–4 già verificato end-to-end dove applicabile, PHP 5 pronto per il gate runtime;
+- [`php-lab/`](./php-lab/) — modulo PHP con cinque lezioni formalizzate; PHP 1–5 riprodotto e verificato localmente nei rispettivi gate runtime;
 - [`theory/`](./theory/) — materiali teorici, analisi del rischio, basi di dati e preparazione del mini-ecommerce;
 - [`test-prep/`](./test-prep/) — test di ripasso con soluzioni separate;
 - file di soluzione e progetto .NET — [`Kleis.sln`](./Kleis.sln) alla radice e i file `.csproj` nelle singole esercitazioni C#.
@@ -69,6 +70,7 @@ Il modulo PHP è raccolto in [`php-lab/`](./php-lab/) e arriva attualmente alla 
 - [PHP 5 — Carrello, sessioni e preparazione dell'ordine](./php-lab/lessons/lesson-05-learned.it.md)
 - [PHP 5 — Codice](./php-lab/exercises/lesson-05/)
 - [PHP 5 — Evidence docente](./php-lab/evidence/php-05/README.it.md)
+- [PHP 5 — Road test runtime](./php-lab/exercises/lesson-05/road-test-cart.sh)
 
 La progressione PHP ora è:
 
@@ -80,7 +82,7 @@ PHP 1–3
 → prossima lezione: ordine + transazioni
 ```
 
-Per PHP 5 il laboratorio completa il compito assegnato (tabella carrello e form dati ordine) senza anticipare la persistenza dell'ordine. Il codice usa `session_start()`, `session_id()`, prepared statements e un database dedicato. La verifica runtime della nuova implementazione resta un gate separato.
+Per PHP 5 il laboratorio completa il compito assegnato (tabella carrello e form dati ordine) senza anticipare la persistenza dell'ordine. Il codice usa `session_start()`, `session_id()`, prepared statements e un database dedicato. Il road test isolato ha verificato aggiunta al carrello, isolamento fra due sessioni, rendering tabellare, form ordine, sintassi PHP e assenza di errori server; `PHP_5_RUNTIME=PASS`.
 
 ## Prerequisiti e comandi operativi
 
