@@ -18,34 +18,24 @@ source evidence -> reconstruct -> understand -> reproduce -> run -> verify -> do
 | PHP 2 | RECONSTRUCTED TO AVAILABLE ARTIFACT | REPRODUCED AND VERIFIED |
 | PHP 3 | RECONSTRUCTED TO AVAILABLE ARTIFACT | REPRODUCED AND VERIFIED |
 | PHP 4 | RECONSTRUCTED TO AVAILABLE SNAPSHOT + FINAL CRUD | REPRODUCED AND VERIFIED END TO END |
-| PHP 5 | TEACHER SNAPSHOT RECOVERED — CART + SESSIONS | LAB IMPLEMENTATION PREPARED; RUNTIME VERIFICATION PENDING |
+| PHP 5 | TEACHER SNAPSHOT RECOVERED — CART + SESSIONS | REPRODUCED AND VERIFIED END TO END |
 
-## Lezioni
+## Lezioni e schede di ripasso
 
-- [Lezione 1 — Fondamenti del linguaggio e prima pagina dinamica](lessons/lesson-01-learned.it.md)
-- [Lezione 2 — Layout statico del catalogo come ponte verso il rendering dinamico](lessons/lesson-02-learned.it.md)
-- [Lezione 3 — Catalogo basato su database con PDO, filtro e paginazione](lessons/lesson-03-learned.it.md)
-- [Lezione 4 — CRUD completo con PDO, validazione, dettaglio, modifica, eliminazione e UI Bootstrap](lessons/lesson-04-learned.it.md)
+Ogni lezione PHP dispone ora sia della Lesson Learned sia di una scheda domanda/risposta dedicata.
+
+- [Lezione 1 — Lesson Learned](lessons/lesson-01-learned.it.md) · [Domande e risposte](lessons/lesson-01-study-questions.it.md)
+- [Lezione 2 — Lesson Learned](lessons/lesson-02-learned.it.md) · [Domande e risposte](lessons/lesson-02-study-questions.it.md)
+- [Lezione 3 — Lesson Learned](lessons/lesson-03-learned.it.md) · [Domande e risposte](lessons/lesson-03-study-questions.it.md)
+- [Lezione 4 — Lesson Learned](lessons/lesson-04-learned.it.md) · [Domande e risposte](lessons/lesson-04-study-questions.it.md)
 - [Lezione 4 — Nota di completamento CRUD](lessons/lesson-04-crud-completion.it.md)
-- [Lezione 5 — Carrello, sessioni e preparazione dell'ordine](lessons/lesson-05-learned.it.md)
+- [Lezione 5 — Lesson Learned](lessons/lesson-05-learned.it.md) · [Domande e risposte](lessons/lesson-05-study-questions.it.md)
 
 ### PHP 4: cosa osservare
 
-La Lezione 4 chiude il ciclo CRUD prodotto. Contiene:
-
-- catalogo con filtro e paginazione;
-- dettaglio prodotto;
-- creazione tramite `INSERT` preparato;
-- modifica tramite form precompilato e `UPDATE` preparato;
-- eliminazione con conferma GET e mutazione effettiva solo tramite POST;
-- escaping HTML e validazione lato server;
-- accesso MySQL tramite PDO;
-- interfaccia Bootstrap;
-- road test isolato del ciclo CRUD completo.
+La Lezione 4 chiude il ciclo CRUD prodotto. Contiene catalogo con filtro e paginazione, dettaglio prodotto, prepared `INSERT`/`UPDATE`/`DELETE`, conferma GET ma mutation DELETE via POST, validazione, escaping HTML, PDO/MySQL, Bootstrap e road test isolato end-to-end.
 
 Codice: [`exercises/lesson-04/`](exercises/lesson-04/)
-
-Lesson Learned: [`lessons/lesson-04-learned.it.md`](lessons/lesson-04-learned.it.md)
 
 ### PHP 5: cosa osservare
 
@@ -53,17 +43,17 @@ La Lezione 5 introduce stato utente temporaneo tramite sessioni e carrello persi
 
 - `session_start()` e `session_id()`;
 - tabella `carrello` con associazione prodotto/sessione;
-- aggiunta prodotto al carrello;
+- aggiunta prodotto via POST;
 - lettura delle sole righe della sessione corrente;
-- completamento del compito: carrello come tabella e totale;
+- carrello come tabella e totale;
 - form dati ordine predisposto ma senza persistenza;
 - confine esplicito: salvataggio ordine e transazioni appartengono alla lezione successiva.
 
 Codice: [`exercises/lesson-05/`](exercises/lesson-05/)
 
-Lesson Learned: [`lessons/lesson-05-learned.it.md`](lessons/lesson-05-learned.it.md)
-
 Evidence docente: [`evidence/php-05/README.it.md`](evidence/php-05/README.it.md)
+
+Road test: [`exercises/lesson-05/road-test-cart.sh`](exercises/lesson-05/road-test-cart.sh)
 
 ## Confine dell'evidence
 
@@ -75,16 +65,16 @@ Per PHP 4 lo snapshot docente e l'implementazione finale CRUD restano documentat
 
 Per PHP 5 lo snapshot docente prova carrello + `session_id()` + pagina carrello e assegna come compito tabella e form ordine. La persistenza dell'ordine e le transazioni sono esplicitamente rinviate alla lezione successiva.
 
-Solo il lavoro realmente eseguito e verificato viene marcato come verificato. L'implementazione PHP 5 presente nel repository è pronta per la verifica runtime, che resta un gate separato.
+Solo il lavoro realmente eseguito e verificato viene marcato come verificato. PHP 5 ha superato il road test runtime con add-to-cart, isolamento fra sessioni, tabella carrello, form ordine, sintassi PHP e server error gate tutti PASS.
 
 ## Readiness del runtime
 
-Baseline locale già verificata nelle lezioni precedenti:
+Baseline locale verificata:
 
 - PHP 8.3.6;
 - PDO disponibile;
 - `pdo_sqlite` disponibile;
 - `pdo_mysql` disponibile;
-- MySQL 8.0.46 disponibile e verificato per PHP 3 e PHP 4.
+- MySQL 8.0.46 disponibile e verificato per PHP 3, PHP 4 e PHP 5.
 
-Per PHP 5 il codice usa variabili d'ambiente `PHP5_DB_*` e non contiene credenziali reali.
+PHP 5 usa variabili d'ambiente `PHP5_DB_*` e non contiene credenziali reali.
