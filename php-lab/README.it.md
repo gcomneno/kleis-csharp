@@ -18,6 +18,7 @@ source evidence -> reconstruct -> understand -> reproduce -> run -> verify -> do
 | PHP 2 | RECONSTRUCTED TO AVAILABLE ARTIFACT | REPRODUCED AND VERIFIED |
 | PHP 3 | RECONSTRUCTED TO AVAILABLE ARTIFACT | REPRODUCED AND VERIFIED |
 | PHP 4 | RECONSTRUCTED TO AVAILABLE SNAPSHOT + FINAL CRUD | REPRODUCED AND VERIFIED END TO END |
+| PHP 5 | TEACHER SNAPSHOT RECOVERED — CART + SESSIONS | LAB IMPLEMENTATION PREPARED; RUNTIME VERIFICATION PENDING |
 
 ## Lezioni
 
@@ -26,10 +27,11 @@ source evidence -> reconstruct -> understand -> reproduce -> run -> verify -> do
 - [Lezione 3 — Catalogo basato su database con PDO, filtro e paginazione](lessons/lesson-03-learned.it.md)
 - [Lezione 4 — CRUD completo con PDO, validazione, dettaglio, modifica, eliminazione e UI Bootstrap](lessons/lesson-04-learned.it.md)
 - [Lezione 4 — Nota di completamento CRUD](lessons/lesson-04-crud-completion.it.md)
+- [Lezione 5 — Carrello, sessioni e preparazione dell'ordine](lessons/lesson-05-learned.it.md)
 
 ### PHP 4: cosa osservare
 
-La Lezione 4 è il checkpoint più completo del modulo attuale. Contiene:
+La Lezione 4 chiude il ciclo CRUD prodotto. Contiene:
 
 - catalogo con filtro e paginazione;
 - dettaglio prodotto;
@@ -38,12 +40,30 @@ La Lezione 4 è il checkpoint più completo del modulo attuale. Contiene:
 - eliminazione con conferma GET e mutazione effettiva solo tramite POST;
 - escaping HTML e validazione lato server;
 - accesso MySQL tramite PDO;
-- interfaccia Bootstrap per catalogo, form, dettaglio e conferma eliminazione;
+- interfaccia Bootstrap;
 - road test isolato del ciclo CRUD completo.
 
 Codice: [`exercises/lesson-04/`](exercises/lesson-04/)
 
-Lesson Learned canonica: [`lessons/lesson-04-learned.it.md`](lessons/lesson-04-learned.it.md)
+Lesson Learned: [`lessons/lesson-04-learned.it.md`](lessons/lesson-04-learned.it.md)
+
+### PHP 5: cosa osservare
+
+La Lezione 5 introduce stato utente temporaneo tramite sessioni e carrello persistito nel database:
+
+- `session_start()` e `session_id()`;
+- tabella `carrello` con associazione prodotto/sessione;
+- aggiunta prodotto al carrello;
+- lettura delle sole righe della sessione corrente;
+- completamento del compito: carrello come tabella e totale;
+- form dati ordine predisposto ma senza persistenza;
+- confine esplicito: salvataggio ordine e transazioni appartengono alla lezione successiva.
+
+Codice: [`exercises/lesson-05/`](exercises/lesson-05/)
+
+Lesson Learned: [`lessons/lesson-05-learned.it.md`](lessons/lesson-05-learned.it.md)
+
+Evidence docente: [`evidence/php-05/README.it.md`](evidence/php-05/README.it.md)
 
 ## Confine dell'evidence
 
@@ -51,13 +71,15 @@ HANDOUT CONTENT != EVIDENCE OF CLASSROOM COMPLETION
 
 TEACHER SNAPSHOT != OUR IMPLEMENTATION
 
-Per PHP 4 lo snapshot docente dimostra la ricostruzione fino al confine POST, mentre il requisito finale del laboratorio è stato completato e verificato come CRUD end-to-end. Le due cose restano documentate separatamente.
+Per PHP 4 lo snapshot docente e l'implementazione finale CRUD restano documentati separatamente.
 
-Solo il lavoro riprodotto e verificato localmente viene marcato come completato in questo laboratorio.
+Per PHP 5 lo snapshot docente prova carrello + `session_id()` + pagina carrello e assegna come compito tabella e form ordine. La persistenza dell'ordine e le transazioni sono esplicitamente rinviate alla lezione successiva.
+
+Solo il lavoro realmente eseguito e verificato viene marcato come verificato. L'implementazione PHP 5 presente nel repository è pronta per la verifica runtime, che resta un gate separato.
 
 ## Readiness del runtime
 
-Baseline locale verificata:
+Baseline locale già verificata nelle lezioni precedenti:
 
 - PHP 8.3.6;
 - PDO disponibile;
@@ -65,13 +87,4 @@ Baseline locale verificata:
 - `pdo_mysql` disponibile;
 - MySQL 8.0.46 disponibile e verificato per PHP 3 e PHP 4.
 
-La readiness PDO/MySQL è stata verificata prima di riprodurre le lezioni PHP 3 e PHP 4 basate sul database.
-
-Per la demo PHP 4 si può avviare il development server dalla cartella della lezione:
-
-```bash
-cd php-lab/exercises/lesson-04
-PHP4_DB_PASSWORD='PASSWORD_LOCALE' php -S 127.0.0.1:8084
-```
-
-L'applicazione richiede la password tramite variabile d'ambiente `PHP4_DB_PASSWORD`; il repository non contiene credenziali reali. Aprendo `http://127.0.0.1:8084/` si viene reindirizzati al catalogo.
+Per PHP 5 il codice usa variabili d'ambiente `PHP5_DB_*` e non contiene credenziali reali.

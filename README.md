@@ -11,18 +11,20 @@ Il percorso attualmente presente comprende:
 - responsive design: Flexbox, Grid e media query;
 - Bootstrap 5: griglia, utility, componenti, form e riscrittura di interfacce esistenti;
 - basi di dati relazionali e SQL: DBMS, tabelle, chiavi, relazioni, CRUD, filtri, `NULL`, `JOIN`, ordinamento, aggregazioni, raggruppamenti e progettazione di tabelle e-commerce;
-- PHP: fondamenti del linguaggio, rendering dinamico, catalogo basato su database, PDO, filtro, paginazione e CRUD completo con interfaccia Bootstrap;
+- PHP: fondamenti del linguaggio, rendering dinamico, catalogo basato su database, PDO, filtro, paginazione, CRUD completo, sessioni e carrello associato alla sessione;
 - teoria, metodo di lavoro e preparazione alle verifiche.
 
 ## Ultimi aggiornamenti
 
+- aggiunta la Lezione PHP 5 su carrello e sessioni, con evidence docente del 10 settembre 2026;
+- completato il compito PHP 5 nel laboratorio: carrello in tabella, totale e form dati ordine non persistente;
+- mantenuto esplicito il confine verso la prossima lezione: persistenza ordine e transazioni non sono ancora marcate come insegnate;
 - completato e verificato il percorso PHP fino alla Lezione 4;
 - aggiunto il CRUD PHP end-to-end su catalogo prodotti: creazione, lettura, dettaglio, modifica ed eliminazione;
 - aggiunti accesso MySQL con PDO, prepared statements, validazione server-side ed escaping HTML;
 - aggiunta una UI Bootstrap alla demo PHP 4 e un entrypoint `index.php` per l'esecuzione locale;
-- aggiunti Lesson Learned bilingui per PHP 1–4 e nota separata di completamento CRUD per PHP 4;
+- aggiunti Lesson Learned bilingui e note di provenance del materiale docente;
 - avviata la preparazione del mini-ecommerce finale con roadmap, moduli, flussi, modello dati e checklist d'esame;
-- aggiunto il quiz finale SQL con 60 domande di ripasso e soluzioni commentate;
 - completato il modulo sulle basi di dati in cinque lezioni progressive, con quiz, laboratori SQL sul database `shop`, soluzioni commentate ed esempi eseguibili.
 
 ## Struttura del repository
@@ -31,7 +33,7 @@ Le aree principali del percorso sono:
 
 - [`csharp/`](./csharp/) — esercitazioni C# organizzate in ordine progressivo;
 - [`web/`](./web/) — esercitazioni HTML, CSS, responsive design e Bootstrap;
-- [`php-lab/`](./php-lab/) — modulo PHP con quattro lezioni ricostruite, riprodotte e verificate;
+- [`php-lab/`](./php-lab/) — modulo PHP con cinque lezioni formalizzate; PHP 1–4 già verificato end-to-end dove applicabile, PHP 5 pronto per il gate runtime;
 - [`theory/`](./theory/) — materiali teorici, analisi del rischio, basi di dati e preparazione del mini-ecommerce;
 - [`test-prep/`](./test-prep/) — test di ripasso con soluzioni separate;
 - file di soluzione e progetto .NET — [`Kleis.sln`](./Kleis.sln) alla radice e i file `.csproj` nelle singole esercitazioni C#.
@@ -56,7 +58,7 @@ La progressione didattica è:
 
 ## PHP — percorso attuale
 
-Il modulo PHP è raccolto in [`php-lab/`](./php-lab/) e arriva attualmente alla Lezione 4.
+Il modulo PHP è raccolto in [`php-lab/`](./php-lab/) e arriva attualmente alla Lezione 5.
 
 - [PHP 1 — Fondamenti del linguaggio e prima pagina dinamica](./php-lab/lessons/lesson-01-learned.it.md)
 - [PHP 2 — Layout statico del catalogo come ponte verso il rendering dinamico](./php-lab/lessons/lesson-02-learned.it.md)
@@ -64,29 +66,21 @@ Il modulo PHP è raccolto in [`php-lab/`](./php-lab/) e arriva attualmente alla 
 - [PHP 4 — CRUD completo con PDO, validazione e UI Bootstrap](./php-lab/lessons/lesson-04-learned.it.md)
 - [PHP 4 — Codice completo](./php-lab/exercises/lesson-04/)
 - [PHP 4 — Nota di completamento CRUD](./php-lab/lessons/lesson-04-crud-completion.it.md)
+- [PHP 5 — Carrello, sessioni e preparazione dell'ordine](./php-lab/lessons/lesson-05-learned.it.md)
+- [PHP 5 — Codice](./php-lab/exercises/lesson-05/)
+- [PHP 5 — Evidence docente](./php-lab/evidence/php-05/README.it.md)
 
-La Lezione 4 implementa e verifica il ciclo completo:
+La progressione PHP ora è:
 
 ```text
-Create → Read → Update → Delete
+PHP 1–3
+→ rendering + database + PDO
+→ PHP 4: CRUD completo
+→ PHP 5: sessione + carrello
+→ prossima lezione: ordine + transazioni
 ```
 
-Il catalogo usa MySQL e PDO, query preparate, validazione lato server ed escaping HTML. La cancellazione viene confermata via GET ma la mutazione effettiva avviene soltanto tramite POST. Il runtime è coperto da un road test isolato del CRUD completo.
-
-### Avvio locale della demo PHP 4
-
-Prerequisiti: PHP con `pdo_mysql`, MySQL e un database compatibile con lo schema incluso in [`php-lab/exercises/lesson-04/database/`](./php-lab/exercises/lesson-04/database/).
-
-Dalla radice del repository:
-
-```bash
-cd php-lab/exercises/lesson-04
-PHP4_DB_PASSWORD='PASSWORD_LOCALE' php -S 127.0.0.1:8084
-```
-
-La password viene letta dalla variabile d'ambiente `PHP4_DB_PASSWORD`; il repository non contiene credenziali reali.
-
-Aprendo `http://127.0.0.1:8084/` si arriva al catalogo. Le pagine principali sono `prodotti.php`, `adminprodotti.php`, `dettaglioprodotto.php`, `modificaprodotto.php` ed `eliminaprodotto.php`.
+Per PHP 5 il laboratorio completa il compito assegnato (tabella carrello e form dati ordine) senza anticipare la persistenza dell'ordine. Il codice usa `session_start()`, `session_id()`, prepared statements e un database dedicato. La verifica runtime della nuova implementazione resta un gate separato.
 
 ## Prerequisiti e comandi operativi
 
@@ -138,14 +132,10 @@ Per eseguire gli script SQL in [`theory/02-basi-di-dati/examples/`](./theory/02-
 - [`02-basi-di-dati`](./theory/02-basi-di-dati/) — percorso didattico completo sulle basi di dati relazionali e SQL;
 - [`03-mini-ecommerce`](./theory/03-mini-ecommerce/) — preparazione del progetto finale: roadmap, moduli, modello dati, flussi utente e checklist d'esame.
 
-Il modulo sulle basi di dati è organizzato in cinque lezioni: concetti generali; relazioni e CRUD; laboratorio `shop` con `SELECT`, `WHERE`, `NULL` e `JOIN`; aggregazioni e raggruppamenti; progettazione delle tabelle per il mini-ecommerce.
-
 ## Preparazione alle verifiche
 
 - [`01-html-css`](./test-prep/01-html-css/) — pre-test su HTML, CSS, layout e form, con soluzioni separate;
 - [`02-csharp`](./test-prep/02-csharp/) — pre-test su sintassi, input/output, condizioni, cicli, array, metodi, validazione e progettazione top-down, con soluzioni separate.
-
-Per una verifica attendibile, apri prima il file del test e consulta le soluzioni soltanto dopo aver completato le risposte.
 
 ## Metodo di lavoro
 
