@@ -18,6 +18,7 @@ source evidence -> reconstruct -> understand -> reproduce -> run -> verify -> do
 | PHP 2 | RECONSTRUCTED TO AVAILABLE ARTIFACT | REPRODUCED AND VERIFIED |
 | PHP 3 | RECONSTRUCTED TO AVAILABLE ARTIFACT | REPRODUCED AND VERIFIED |
 | PHP 4 | RECONSTRUCTED TO AVAILABLE SNAPSHOT + FINAL CRUD | REPRODUCED AND VERIFIED END TO END |
+| PHP 5 | TEACHER SNAPSHOT RECOVERED — CART + SESSIONS | LAB IMPLEMENTATION PREPARED; RUNTIME VERIFICATION PENDING |
 
 ## Lessons
 
@@ -26,24 +27,33 @@ source evidence -> reconstruct -> understand -> reproduce -> run -> verify -> do
 - [Lesson 3 — Database-backed catalog with PDO, filtering, and pagination](lessons/lesson-03-learned.md)
 - [Lesson 4 — Complete CRUD with PDO, validation, detail, edit, delete, and Bootstrap UI](lessons/lesson-04-learned.md)
 - [Lesson 4 — CRUD completion note](lessons/lesson-04-crud-completion.md)
+- [Lesson 5 — Cart, sessions, and order preparation](lessons/lesson-05-learned.md)
 
 ### PHP 4: what to inspect
 
-Lesson 4 is the most complete checkpoint in the current PHP module. It includes:
-
-- catalog filtering and pagination;
-- product detail;
-- creation through a prepared `INSERT`;
-- editing through a pre-populated form and prepared `UPDATE`;
-- deletion with GET confirmation and the actual mutation performed only through POST;
-- HTML escaping and server-side validation;
-- MySQL access through PDO;
-- Bootstrap presentation for catalog, forms, detail, and delete confirmation;
-- an isolated end-to-end CRUD road test.
+Lesson 4 closes the product CRUD cycle. It includes prepared `INSERT`, `SELECT`, `UPDATE`, and `DELETE`, server-side validation, HTML escaping, Bootstrap UI, and an isolated end-to-end road test.
 
 Code: [`exercises/lesson-04/`](exercises/lesson-04/)
 
 Canonical Lesson Learned: [`lessons/lesson-04-learned.md`](lessons/lesson-04-learned.md)
+
+### PHP 5: what to inspect
+
+Lesson 5 introduces temporary per-user state through PHP sessions and a database-backed cart:
+
+- `session_start()` and `session_id()`;
+- `carrello` table linking product id and session id;
+- add-to-cart mutation;
+- reading only rows belonging to the current session;
+- homework completion: cart table and total;
+- order-data form prepared without persisting an order yet;
+- explicit boundary: order persistence and transactions belong to the next lesson.
+
+Code: [`exercises/lesson-05/`](exercises/lesson-05/)
+
+Canonical Lesson Learned: [`lessons/lesson-05-learned.md`](lessons/lesson-05-learned.md)
+
+Teacher evidence: [`evidence/php-05/README.it.md`](evidence/php-05/README.it.md)
 
 ## Evidence boundary
 
@@ -51,13 +61,15 @@ HANDOUT CONTENT != EVIDENCE OF CLASSROOM COMPLETION
 
 TEACHER SNAPSHOT != OUR IMPLEMENTATION
 
-For PHP 4, the teacher snapshot supports reconstruction up to the POST boundary, while the final lab requirement was completed and verified as end-to-end CRUD. The two are documented separately.
+For PHP 4, the teacher snapshot and final CRUD implementation remain documented separately.
 
-Only locally reproduced and verified work is marked as completed in this lab.
+For PHP 5, the teacher snapshot proves cart + `session_id()` + cart page and assigns the table/order-form homework. Order persistence and transactions are explicitly deferred to the next lesson.
+
+Only work that has actually been run and verified is marked as verified. The PHP 5 lab implementation is prepared for runtime verification, which remains a separate gate.
 
 ## Runtime readiness
 
-Verified local baseline:
+Previously verified local baseline:
 
 - PHP 8.3.6;
 - PDO available;
@@ -65,13 +77,4 @@ Verified local baseline:
 - `pdo_mysql` available;
 - MySQL 8.0.46 available and verified for PHP 3 and PHP 4.
 
-PDO/MySQL readiness was verified before reproducing the database-backed PHP 3 and PHP 4 lessons.
-
-For the PHP 4 demo, start the development server from the lesson directory:
-
-```bash
-cd php-lab/exercises/lesson-04
-PHP4_DB_PASSWORD='LOCAL_PASSWORD' php -S 127.0.0.1:8084
-```
-
-The application requires the password through the `PHP4_DB_PASSWORD` environment variable; the repository contains no real credentials. Opening `http://127.0.0.1:8084/` redirects to the catalog.
+PHP 5 uses `PHP5_DB_*` environment variables and stores no real credentials in the repository.
